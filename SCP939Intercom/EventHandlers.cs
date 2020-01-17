@@ -45,17 +45,31 @@ namespace SCP939Intercom
 				{
 					try
 					{
+						//Plugin.Info("Checking class");
 						if (!rh.characterClassManager.CurClass.Is939())
 							continue;
+						//Plugin.Info("Is939");
 						GameObject player = rh.gameObject;
+						//Plugin.Info("got game object");
 						Intercom intercom = player.GetComponent<Intercom>();
+						//Plugin.Info("Got intercom");
 						Scp939PlayerScript script = player.GetComponent<Scp939PlayerScript>();
+						//Plugin.Info("Got script");
 
-						if (Vector3.Distance(player.transform.position, intercomeArea.position) >
+						if (Vector3.Distance(player.transform.position, IntercomArea.position) >
 						    intercom.triggerDistance)
+						{
+							//Plugin.Info("distance check too far");
 							continue;
+						}
+
 						if (!script.NetworkusingHumanChat)
+						{
+							//Plugin.Info("not using hooman chat");
 							continue;
+						}
+
+						//Plugin.Info("requesting transmition");
 						Intercom.host.RequestTransmission(player);
 					}
 					catch (Exception e)
